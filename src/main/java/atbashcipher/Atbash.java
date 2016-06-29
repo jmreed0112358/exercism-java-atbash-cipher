@@ -46,4 +46,8 @@ public class Atbash
 	private static Character getEncodedLetter(Character letter) {
 		throw new NotImplementedException();
 	}
+	
+	private static String sanitize(String input) {
+		throw new NotImplementedException();
+	}
 }
