@@ -1,5 +1,7 @@
 package atbashcipher;
 
+import java.security.InvalidParameterException;
+
 import exceptions.NotImplementedException;
 
 public class Atbash
@@ -15,7 +17,20 @@ public class Atbash
 	 * @return
 	 */
 	public static String decode(String cipherText) {
-		throw new NotImplementedException();
+		if ( cipherText == null ) { 
+			throw new NullPointerException();
+		} else if ( cipherText.isEmpty() ) {
+			return "";
+		}
+		
+		cipherText = sanitize( cipherText );
+		StringBuilder sb = new StringBuilder();
+		
+		for ( int i = 0 ; i < cipherText.length( ) ; i++ ) {
+			sb.append( getDecodedLetter( cipherText.charAt( i ) ) );
+		}
+		
+		return sb.toString( );
 	}
 	
 	/**
@@ -26,7 +41,23 @@ public class Atbash
 	 * @return
 	 */
 	public static String encode(String plainText) {
-		throw new NotImplementedException();
+		if ( plainText == null ) { 
+			throw new NullPointerException();
+		} else if ( plainText.isEmpty() ) {
+			return "";
+		}
+		
+		plainText = sanitize( plainText );
+		StringBuilder sb = new StringBuilder();
+		
+		for ( int i = 0 ; i < plainText.length( ) ; i++ ) {
+			if ( i != 0 && i % 5 == 0 ) {
+				sb.append( " " );
+			}
+			sb.append( getEncodedLetter( plainText.charAt( i ) ) );
+		}
+		
+		return sb.toString( );
 	}
 	
 	/**
@@ -35,7 +66,22 @@ public class Atbash
 	 * @return
 	 */
 	private static Character getDecodedLetter(Character letter ) {
-		throw new NotImplementedException();
+		if ( Character.isDigit( letter ) ) {
+			return letter;
+		}
+		
+		Integer index = 0;
+		for ( index = 0 ; index < reverseAlphabet.length( ) ; index++ ) {
+			if ( letter == reverseAlphabet.charAt( index ) ) {
+				break;
+			}
+		}
+		
+		if ( index == reverseAlphabet.length( ) ) {
+			throw new InvalidParameterException();
+		} else {
+			return alphabet.charAt( index );
+		}
 	}
 	
 	/**
@@ -44,10 +90,33 @@ public class Atbash
 	 * @return
 	 */
 	private static Character getEncodedLetter(Character letter) {
-		throw new NotImplementedException();
+		if ( Character.isDigit( letter ) ) {
+			return letter;
+		}
+		
+		Integer index = 0;
+		for ( index = 0 ; index < alphabet.length( ) ; index++ ) {
+			if ( letter == alphabet.charAt( index ) ) {
+				break;
+			}
+		}
+		
+		if ( index == alphabet.length( ) ) {
+			throw new InvalidParameterException();
+		} else {
+			return reverseAlphabet.charAt( index );
+		}
 	}
 	
 	private static String sanitize(String input) {
-		throw new NotImplementedException();
+		StringBuilder sb = new StringBuilder();
+		
+		for ( int i = 0 ; i < input.length( ) ; i++ ) {
+			if ( Character.isLetterOrDigit( input.charAt( i ) ) ) {
+				sb.append( input.charAt( i ) );
+			}
+		}
+		
+		return sb.toString( ).toLowerCase( );
 	}
 }
