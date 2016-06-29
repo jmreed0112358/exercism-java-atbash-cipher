@@ -21,13 +21,15 @@ public class AtbashTest {
         @Parameters
         public static Collection<Object[]> data() {
             return Arrays.asList(new Object[][] {
+            		{ "", "" },
                     { "no", "ml" },
                     { "yes", "bvh" },
                     { "OMG", "lnt" },
                     { "mindblowingly", "nrmwy oldrm tob" },
                     { "Testing, 1 2 3, testing.", "gvhgr mt123 gvhgr mt" },
                     { "Truth is fiction.", "gifgs rhurx grlm" },
-                    { "The quick brown fox jumps over the lazy dog.", "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt" }
+                    { "The quick brown fox jumps over the lazy dog.", "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt" },
+                    { "mindb\t\n3523 4523^&^&* ^&*^*&^lo wingly", "nrmwy oldrm tob" },
             });
         }
 
@@ -50,9 +52,11 @@ public class AtbashTest {
         @Parameters
         public static Collection<Object[]> data() {
             return Arrays.asList(new Object[][] {
+            		{ "", "" },
                     { "vcvix rhn", "exercism" },
                     { "zmlyh gzxov rhlug vmzhg vkkrm thglm v", "anobstacleisoftenasteppingstone" },
-                    { "gvhgr mt123 gvhgr mt", "testing123testing" }
+                    { "gvhgr mt123 gvhgr mt", "testing123testing" },
+                    { "12345 !@#$% \t\t\n\t\t gvhgr mt123 gvhgr mt", "testing123testing" }
             });
         }
 
